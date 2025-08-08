@@ -1,0 +1,37 @@
+<nav class="nav-header">
+  <div class="container">
+    <div class="row gy-4">
+      <div class="col-lg-3 col-md-6">
+        <img src="../../../assets/TendTudo.svg" alt="" class="logo_header">
+      </div>
+      <div class="col-lg-4 col-md-6">
+        <div class="search-box-custom" role="search">
+          <div class="input-group">
+            <input type="search" class="form-control" placeholder="Buscar por..." aria-label="Campo de busca">
+            <button class="btn" type="button" aria-label="Buscar">
+              <span class="material-symbols-outlined">
+                search
+              </span>
+            </button>
+          </div>
+        </div>
+        <div class="header_categorias">
+          <a href="/categoria/{{categoria}}" *ngFor="let categoria of categorias" class="header_categorias__link">{{categoria | uppercase}}</a>
+        </div>
+      </div>
+      <div class="col-lg-2 col-md-6 icons-header">
+
+        <a href="" class="user-icon">
+          <img src="../../../assets/person.svg" alt="">
+        </a>
+
+        <a href="">
+          <img src="../../../assets/shopping_bag.svg" alt="">
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+
+</nav>
