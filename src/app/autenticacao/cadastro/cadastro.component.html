@@ -1,0 +1,113 @@
+<div class="container register-container">
+  <div class="row justify-content-center">
+    <div class="col-lg-8 col-md-10">
+
+      <div class="text-left mb-5">
+        <h1 class="fw-bold">Cadastre-se</h1>
+        <p class="text-muted">Vamos configurar tudo para que você possa acessar sua conta pessoal.</p>
+      </div>
+
+      <form>
+        <div class="row g-3">
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="firstName" placeholder="Nome" value="Emily">
+              <label for="firstName">Nome</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="lastName" placeholder="Sobrenome" value="Johnson">
+              <label for="lastName">Sobrenome</label>
+            </div>
+          </div>
+
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="email" class="form-control" id="email" placeholder="Email" value="emily.johnson@x.dummyjson.com">
+              <label for="email">Email</label>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="form-floating">
+              <input type="tel" class="form-control" id="phone" placeholder="Número de telefone" value="+81 965-431-3024">
+              <label for="phone">Número de telefone</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="input-group">
+              <div class="form-floating">
+                <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" placeholder="Senha" value="emilyspass">
+                <label for="password">Senha</label>
+              </div>
+              <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()" aria-label="Mostrar ou esconder a senha">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="input-group">
+              <div class="form-floating">
+                <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control" id="confirmPassword" placeholder="Confirmar senha" value="emilyspass">
+                <label for="confirmPassword">Confirmar senha</label>
+              </div>
+              <button class="btn btn-outline-secondary" type="button" (click)="toggleConfirmPasswordVisibility()" aria-label="Mostrar ou esconder a senha de confirmação">
+                <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="address" placeholder="Endereço" value="626 Main Street">
+              <label for="address">Endereço</label>
+            </div>
+          </div>
+
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="city" placeholder="Cidade" value="Phoenix">
+              <label for="city">Cidade</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="country" placeholder="País" value="United States">
+              <label for="country">País</label>
+            </div>
+          </div>
+          <div class="col-md-12">
+            <div class="form-floating">
+              <input type="text" class="form-control" id="zip" placeholder="CEP" value="29112">
+              <label for="zip">CEP</label>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" value="" id="termsCheck">
+              <label class="form-check-label" for="termsCheck">
+                Concordo com todos os <a href="#" class="text-custom-orange">Termos</a> e <a href="#" class="text-custom-orange">Políticas de privacidade</a>
+              </label>
+            </div>
+          </div>
+
+          <div class="col-12 mt-4">
+            <div class="d-grid">
+              <button type="submit" class="btn btn-custom-orange btn-lg">Criar conta</button>
+            </div>
+          </div>
+        </div>
+      </form>
+
+      <div class="text-center mt-4">
+        <p class="text-muted">
+          Já tem uma conta? <a href="#" class="text-custom-orange fw-bold">Faça login</a>
+        </p>
+      </div>
+
+    </div>
+  </div>
+</div>

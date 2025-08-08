@@ -1,18 +1,16 @@
-// Cor personalizada, pode vir de um arquivo de variáveis global
 $custom-orange: #ff6f00;
 
 .footer-section {
-  padding: 4rem 0; // Espaçamento interno vertical generoso
+  padding: 4rem 0;
 
   background-color: #0c0c0c;
-  // Estilo para a logo no footer
+
   .footer-logo {
     font-weight: bold;
     color: $custom-orange;
     font-size: 1.75rem;
   }
 
-  // Estilo para os títulos das colunas de links
   .footer-title {
     font-weight: bold;
     color: $custom-orange;
@@ -20,9 +18,8 @@ $custom-orange: #ff6f00;
     margin-bottom: 1rem;
   }
 
-  // Estilo para cada link no rodapé
   .footer-link {
-    color: #ffffff; // Um cinza claro para não cansar a vista
+    color: #ffffff;
     text-decoration: none;
     font-size: 12px;
     font-weight: 500;
@@ -30,7 +27,6 @@ $custom-orange: #ff6f00;
     margin-bottom: 8px;
   }
 
-  // Estilo para os ícones de redes sociais
   .social-icon {
     display: inline-flex;
     align-items: center;
