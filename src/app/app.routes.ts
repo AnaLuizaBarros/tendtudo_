@@ -9,6 +9,11 @@ export const routes: Routes = [
         (m) => m.AutenticacaoModule
       ),
   },
+  {
+    path: 'categoria',
+    loadChildren: () =>
+      import('./categoria/categoria.module').then((m) => m.CategoriaModule),
+  },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],

@@ -1,0 +1,71 @@
+$custom-orange: #ff6f00;
+.card {
+  cursor: pointer;
+  text-decoration: none;
+}
+.product-card {
+  border: none;
+
+  .card-body {
+    padding-left: 0;
+  }
+
+  .card-img-top-container {
+    background-color: #f7f7f7;
+    padding: 24px 14px;
+    border-radius: 3px;
+  }
+
+  .card-img-top {
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    height: 200px;
+  }
+
+  .card-title {
+    font-size: 16px;
+    font-weight: 400;
+  }
+  .card-text {
+    background-color: #f0f2f2;
+    width: fit-content;
+    padding: 1px 6px;
+  }
+
+  .rating-stars {
+    color: #000000;
+    font-size: 12px;
+  }
+}
+.discount-text {
+  color: #ff6200;
+  font-weight: 400;
+  font-size: 12px;
+  margin-top: 0.2em;
+}
+.custom-price {
+  display: flex;
+  align-items: flex-start;
+  font-weight: bold;
+  color: #000000;
+  line-height: 1;
+  margin-top: 8px;
+}
+
+.price-symbol {
+  font-size: 12px;
+  margin-right: 2px;
+  margin-top: 0.2em;
+}
+
+.price-integer {
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.price-cents {
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 2px;
+  margin-top: 0.2em;
+}

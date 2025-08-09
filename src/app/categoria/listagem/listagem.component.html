@@ -1,0 +1,38 @@
+<div class="container py-5">
+  <div class="custom-dropdown" #dropdownContainer>
+    <button class="dropdown-trigger" (click)="toggleDropdown()">
+      <span>Organizar por</span>
+      <img src="assets/Arrow.svg" alt="Abrir opções" class="chevron-icon" [class.rotated]="isDropdownOpen()">
+    </button>
+
+    <div class="dropdown-panel" *ngIf="isDropdownOpen()">
+      <button *ngFor="let option of sortOptions" class="dropdown-item" [class.active]="option.value === sortOption()" (click)="selectSortOption(option.value)">
+        {{ option.label }}
+      </button>
+    </div>
+
+  </div>
+
+
+  <div class="category-itens d-flex justify-content-between align-items-center">
+    <h1 class="fw-bolder text-uppercase">{{ category() }}</h1>
+    <div class="custom-pagination">
+      <button *ngFor="let pageNum of pages()" class="pagination-btn" [class.active]="pageNum === currentPage()" (click)="changePage(pageNum)">
+        {{ pageNum }}
+      </button>
+      <button class="pagination-btn" (click)="changePage(currentPage() - 1)" [disabled]="currentPage() === 1">
+        &lt;
+      </button>
+
+      <button class="pagination-btn" (click)="changePage(currentPage() + 1)" [disabled]="currentPage() === totalPages()">
+        &gt;
+      </button>
+    </div>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-lg-3 col-md-4 col-6" *ngFor="let product of products()">
+      <tt-card [product]="product"></tt-card>
+    </div>
+  </div>
+</div>

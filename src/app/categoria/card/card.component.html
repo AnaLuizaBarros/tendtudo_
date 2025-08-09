@@ -1,0 +1,24 @@
+<a [routerLink]="['/categoria', 'produto', product.id]" (click)="test(product.id)" class="card h-100 product-card">
+  <div class="card-img-top-container">
+    <img [src]="product.thumbnail" class="card-img-top" [alt]="product.title">
+  </div>
+
+  <div class="card-body d-flex flex-column">
+    <h5 class="card-title">{{ product.title }}</h5>
+    <p class="card-text text-muted small text-capitalize">{{ product.category }}</p>
+
+    <div class="d-flex align-items-center mb-2 rating-stars">
+      <span class="me-2">{{ product.rating}}</span>
+    </div>
+
+    <div class="custom-price">
+      <span class="price-symbol">R$</span>
+      <span class="price-integer">{{ product.price.toFixed(2).split('.')[0] }}</span>
+      <span class="price-cents">{{ product.price.toFixed(2).split('.')[1] }}</span>
+      <span class="discount-text ms-2" *ngIf="product.discountPercentage">
+        {{ product.discountPercentage }}% OFF
+      </span>
+    </div>
+  </div>
+
+</a>
