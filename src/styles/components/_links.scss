@@ -1,0 +1,26 @@
+@import "../base/variables";
+
+.text-custom-orange {
+  color: $secondary-color;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: darken($secondary-color, 10%);
+  }
+}
+
+.back-link {
+  color: $gray;
+  text-decoration: none;
+  font-weight: 500;
+  display: inline-flex;
+  align-items: center;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: #212529;
+  }
+}

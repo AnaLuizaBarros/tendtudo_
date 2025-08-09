@@ -1,0 +1,47 @@
+@import "../base/variables";
+
+.search-box-custom {
+  max-width: 500px;
+  width: 100%;
+
+  .input-group {
+    background-color: transparent;
+
+    &:focus-within {
+      .form-control,
+      .btn {
+        border-color: $primary-color;
+      }
+      .form-control {
+        box-shadow: 0 0 0 0.2rem
+          rgba(
+            red($primary-color),
+            green($primary-color),
+            blue($primary-color),
+            0.25
+          );
+      }
+    }
+  }
+
+  .form-control {
+    background-color: transparent;
+    color: $light-text;
+    border: 1px solid lighten($dark-background, 20%);
+    border-right: none;
+    box-shadow: none;
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+    &::placeholder {
+      color: $muted-text;
+    }
+  }
+
+  .btn {
+    background-color: transparent;
+    color: $light-text;
+    border: 1px solid lighten($dark-background, 20%);
+    border-left: none;
+    box-shadow: none !important;
+  }
+}

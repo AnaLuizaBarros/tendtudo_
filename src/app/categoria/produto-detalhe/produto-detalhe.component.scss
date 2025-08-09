@@ -1,21 +1,11 @@
-$custom-orange: #ff6f00;
-
-.back-link {
-  color: #6c757d;
-  text-decoration: none;
-  font-weight: 500;
-  display: inline-flex;
-  align-items: center;
-
-  &:hover {
-    color: #212529;
-  }
-}
+@import "../../../styles/base/variables";
 
 .product-image-container {
   padding: 45px 75px;
   height: 610px;
-  align-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .img-fluid {
     mix-blend-mode: multiply;
@@ -25,38 +15,43 @@ $custom-orange: #ff6f00;
   }
 }
 
+.product-title {
+  font-weight: 300;
+  font-size: 32px;
+  margin: 16px 0;
+}
+
+.product-category {
+  font-weight: 500;
+  font-size: 12px;
+  text-transform: uppercase;
+  color: #737380;
+}
+
 .rating-stars {
-  color: #ffc107;
+  color: $star-rating-color;
 }
 
 .price-section .discount-text {
-  color: $custom-orange;
+  color: $primary-color;
   font-weight: bold;
 }
 
 .favorite-icon {
   font-size: 1.75rem;
   cursor: pointer;
-  color: #ced4da;
+  color: $border-color;
   transition: color 0.2s ease-in-out, transform 0.2s ease;
 
   &:hover {
     transform: scale(1.1);
   }
 
-  & .active {
-    color: $custom-orange;
+  &.active {
+    color: $primary-color;
   }
 }
-.product-title {
-  font-weight: 300;
-  font-size: 32px;
-  margin: 16px 0px;
-}
-.product-category {
-  font-weight: 500;
-  font-size: 12px;
-}
+
 .description-title {
   color: #737380;
   font-size: 16px;
@@ -64,17 +59,13 @@ $custom-orange: #ff6f00;
   margin-bottom: 6px;
   margin-top: 36px;
 }
+
 .text-description {
   font-size: 14px;
-  color: #41414d;
+  color: $dark-text;
+  line-height: 1.5;
 }
+
 .button-section {
   margin-top: 54px;
-  .add-btn {
-    background-color: #ff6f00;
-    color: #f5f5fa;
-    border-radius: 39px;
-    border-color: none;
-    font-size: 16px;
-  }
 }

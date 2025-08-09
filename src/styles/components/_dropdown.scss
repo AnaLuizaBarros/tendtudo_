@@ -1,0 +1,66 @@
+@import "../base/variables";
+
+.custom-dropdown {
+  position: relative;
+  display: flex;
+  justify-content: end;
+  margin-bottom: 24px;
+}
+
+.dropdown-trigger {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  font-size: 0.9rem;
+  color: $gray;
+}
+
+.chevron-icon {
+  width: 14px;
+  height: 14px;
+  transition: transform 0.2s ease-in-out;
+
+  &.rotated {
+    transform: rotate(180deg);
+  }
+}
+
+.dropdown-panel {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 8px;
+  background-color: $white;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: max-content;
+  padding: 4px;
+  border: 1px solid $dropdown-background;
+}
+
+.dropdown-item {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 8px 12px;
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  color: #333;
+
+  &:hover {
+    background-color: $dropdown-background;
+  }
+
+  &.active {
+    font-weight: 600;
+    color: $pagination-active-color;
+  }
+}

@@ -1,33 +1,11 @@
-$custom-orange: #ff6f00;
-
 .register-container {
   padding: 5rem 0;
 }
 
-.btn-custom-orange {
-  background-color: $custom-orange;
-  border-color: $custom-orange;
-  color: #fff;
-  font-weight: bold;
-
-  &:hover {
-    background-color: darken($custom-orange, 7.5%);
-    border-color: darken($custom-orange, 10%);
-    color: #fff;
+.register-form {
+  .input-group .form-floating .form-control {
+    border-right: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
   }
-}
-
-.text-custom-orange {
-  color: $custom-orange;
-  text-decoration: none;
-
-  &:hover {
-    color: darken($custom-orange, 10%);
-  }
-}
-
-.input-group .form-floating .form-control {
-  border-right: 0;
-  border-top-right-radius: 0;
-  border-bottom-right-radius: 0;
 }

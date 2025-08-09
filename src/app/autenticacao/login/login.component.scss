@@ -1,53 +1,60 @@
-$custom-orange: #ff8682;
-$orange: #ff6200;
+@import "../../../styles/base/variables";
 
 .login-container {
   padding-top: 5rem;
   padding-bottom: 5rem;
 }
 
-.btn-custom-orange {
-  background-color: $orange;
-  border-color: $orange;
-  color: #fff;
-  border-radius: 75px;
-  font-size: 18px;
-  font-weight: 600;
-
-  &:hover {
-    background-color: darken($custom-orange, 7.5%);
-    border-color: darken($custom-orange, 10%);
-    color: #fff;
-  }
-}
-.cadastrar-box {
-  p,
-  .text-custom-orange {
-    font-style: 600;
-    font-size: 18px;
-  }
-}
-.text-custom-orange {
-  color: $custom-orange;
-  text-decoration: none;
-
-  &:hover {
-    color: darken($custom-orange, 10%);
-  }
-}
-
 .acess-text {
   margin-bottom: 66px;
+
   h1 {
     font-weight: 600;
     font-size: 51px;
   }
+
   .text-muted {
     margin-top: 22px;
     font-weight: 400;
     font-size: 20px;
   }
 }
+
+.btn-custom-orange {
+  background-color: $primary-color;
+  border-color: $primary-color;
+  color: $white;
+  border-radius: 75px;
+  font-size: 18px;
+  font-weight: 600;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+
+  &:hover {
+    background-color: darken($primary-color, 5%);
+    border-color: darken($primary-color, 7%);
+    color: $white;
+  }
+}
+
+.text-custom-orange {
+  color: $secondary-color;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 18px;
+  transition: color 0.2s ease;
+
+  &:hover {
+    color: darken($secondary-color, 10%);
+  }
+}
+
+.cadastrar-box {
+  p {
+    font-size: 18px;
+    font-weight: 600;
+  }
+}
+
 .form-check-label {
   font-size: 18px;
   font-weight: 500;
