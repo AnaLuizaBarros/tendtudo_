@@ -5,7 +5,7 @@
   padding: 44px 0 30px 0;
 
   .header_categorias {
-    margin-top: 32px;
+    margin: 32px 5px 0px 5px;
     display: flex;
     gap: 20px;
     justify-content: space-between;
@@ -17,7 +17,9 @@
       margin-right: 39px;
       text-decoration: none;
       padding-bottom: 4px;
-
+      &:hover {
+        color: darken($white, 20%);
+      }
       &.active {
         border-bottom: 2px solid $primary-color;
       }
@@ -26,8 +28,6 @@
 }
 
 .icons-header {
-  text-align: end;
-
   .user-icon {
     margin-right: 8px;
   }
