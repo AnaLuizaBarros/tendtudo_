@@ -1,0 +1,10 @@
+<div *ngIf="isVisible" class="toast-container" [@toastAnimation]>
+  <div class="toast-content" [ngClass]="{'success': type === 'success', 'error': type === 'error'}">
+    <div class="toast-icon">
+      <i class="bi" [ngClass]="{'bi-check-circle-fill': type === 'success', 'bi-x-circle-fill': type === 'error'}"></i>
+    </div>
+    <div class="toast-message">
+      {{ message }}
+    </div>
+  </div>
+</div>
