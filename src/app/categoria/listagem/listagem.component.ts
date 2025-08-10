@@ -10,7 +10,7 @@ import {
 } from '@angular/core';
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute } from '@angular/router';
-import { SortOption, Product, SORT_OPTIONS } from '../../models/product.model';
+import { Product, SORT_OPTIONS, SortOption } from '../../models/product.model';
 
 @Component({
   selector: 'tt-listagem',
@@ -81,6 +81,8 @@ export class ListagemComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe((params) => {
       this.category.set(params.get('name')!);
+      this.getProducts();
+
       this.currentPage.set(1);
     });
     this.getProducts();
