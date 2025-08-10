@@ -1,5 +1,5 @@
-import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'tt-header',
@@ -7,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
-  categorias: string[] = ['Beauty', 'Fragrances', 'Furniture', 'Groceries'];
+  categorias: string[] = ['beauty', 'fragrances', 'furniture', 'groceries'];
+  public searchQuery: string = '';
+  private router = inject(Router);
+
+  onSearch(): void {
+    if (this.searchQuery.trim()) {
+      this.router.navigate(['/search'], {
+        queryParams: { q: this.searchQuery.trim() },
+      });
+      this.searchQuery = '';
+    }
+  }
 }
