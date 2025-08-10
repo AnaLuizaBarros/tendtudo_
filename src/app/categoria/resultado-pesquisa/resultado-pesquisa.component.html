@@ -1,0 +1,29 @@
+<div class="container mt-5 mb-5">
+  <div *ngIf="isLoading" class="text-center py-5">
+    <div class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Carregando...</span>
+    </div>
+  </div>
+
+  <div *ngIf="!isLoading">
+    <div *ngIf="hasResults; else noResults">
+      <h2 class="mb-4">Resultados para: <span class="fw-bold">{{ searchQuery }}</span></h2>
+
+      <div *ngFor="let category of categoryKeys" class="category-section mb-5">
+        <h3 class="category-title text-capitalize pb-2 mb-4">{{ category }}</h3>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+          <div class="col" *ngFor="let product of groupedProducts[category]">
+            <tt-card [product]="product"></tt-card>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noResults>
+      <div class="text-center py-5">
+        <h2>Nenhum resultado encontrado para "{{ searchQuery }}" nas categorias permitidas.</h2>
+        <p class="text-muted">Tente buscar por outro termo.</p>
+      </div>
+    </ng-template>
+  </div>
+</div>

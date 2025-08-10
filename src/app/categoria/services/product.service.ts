@@ -1,10 +1,17 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../environments/environment.development';
 import { Product } from '../../models/product.model';
+import { environment } from '../../environments/environment.development';
 
 export interface PaginatedResponse {
+  products: Product[];
+  total: number;
+  skip: number;
+  limit: number;
+}
+
+export interface ApiResponse {
   products: Product[];
   total: number;
   skip: number;
@@ -31,5 +38,8 @@ export class ProductService {
   getProductById(id: string): Observable<Product> {
     const url = `${this.baseUrl}/${id}`;
     return this.http.get<Product>(url);
+  }
+  searchProducts(query: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${this.baseUrl}/search?q=${query}`);
   }
 }
