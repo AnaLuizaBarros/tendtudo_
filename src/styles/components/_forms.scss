@@ -1,0 +1,64 @@
+.input-container {
+  position: relative;
+  width: 100%;
+  font-family: Arial, sans-serif;
+
+  input {
+    width: 100%;
+    padding: 16px 40px 6px 12px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+
+    &:focus {
+      border-color: $secondary-color;
+      box-shadow: 0 0 0 0.2rem rgba($secondary-color, 0.25);
+    }
+  }
+
+  label {
+    position: absolute;
+    top: 16px;
+    left: 12px;
+    font-size: 16px;
+    color: #777;
+    pointer-events: none;
+    transition: all 0.2s ease;
+    background-color: white;
+    padding: 0 4px;
+  }
+
+  input:focus + label,
+  input:not(:placeholder-shown) + label {
+    top: -8px;
+    left: 8px;
+    font-size: 12px;
+  }
+
+  .toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 4px;
+    color: #777;
+
+    &:hover {
+      color: $secondary-color;
+    }
+
+    i {
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.form-check-label {
+  font-size: 18px;
+  font-weight: 500;
+  margin-left: 4px;
+}

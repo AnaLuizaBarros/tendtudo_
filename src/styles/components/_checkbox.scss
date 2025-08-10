@@ -1,0 +1,62 @@
+@import "../base/variables";
+
+.custom-checkbox {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  cursor: pointer;
+  font-size: 18px;
+  font-weight: 500;
+  color: #495057;
+  user-select: none;
+
+  input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+
+  .checkmark {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 24px;
+    background-color: #fff;
+    border: 2px solid #ced4da;
+    border-radius: 6px;
+    transition: all 0.2s ease-in-out;
+  }
+
+  &:hover input ~ .checkmark {
+    border-color: darken(#ced4da, 10%);
+  }
+
+  input:checked ~ .checkmark {
+    background-color: $primary-color;
+    border-color: $primary-color;
+  }
+
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+
+  input:checked ~ .checkmark:after {
+    display: block;
+  }
+
+  .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    transform: rotate(45deg);
+  }
+}

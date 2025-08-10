@@ -1,8 +1,8 @@
 .toast-container {
   position: fixed;
   bottom: 20px;
-  left: 20px; // Alterado para posicionar à esquerda
-  transform: none; // Removida a centralização horizontal
+  left: 20px;
+  transform: none;
   z-index: 2000;
 }
 
@@ -17,11 +17,11 @@
   max-width: 90vw;
 
   &.success {
-    background-color: #28a745; // Cor de sucesso
+    background-color: #28a745;
   }
 
   &.error {
-    background-color: #dc3545; // Cor de erro
+    background-color: #dc3545;
   }
 }
 
