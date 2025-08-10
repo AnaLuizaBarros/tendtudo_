@@ -14,7 +14,7 @@
           </div>
         </form>
         <div class="header_categorias">
-          <a href="/categoria/{{categoria}}" *ngFor="let categoria of categorias" class="header_categorias__link">{{categoria | uppercase}}</a>
+          <a *ngFor="let categoria of categorias" class="header_categorias__link" [routerLink]="['/categoria', categoria]" routerLinkActive="active">{{categoria | uppercase}}</a>
         </div>
       </div>
       <div class="col-lg-2 col-md-6 text-center icons-header">
