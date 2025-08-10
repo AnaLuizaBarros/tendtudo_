@@ -1,37 +1,96 @@
-import { Component, ViewChild } from '@angular/core';
-import { NgForm } from '@angular/forms';
-import { LoginData } from '../../models/login.model';
+import { Router } from '@angular/router';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthService } from '../services/auth.service';
+import {
+  catchError,
+  finalize,
+  of,
+  Subject,
+  switchMap,
+  takeUntil,
+  throwError,
+} from 'rxjs';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'tt-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent {
-  @ViewChild('loginForm') loginForm?: NgForm;
+export class LoginComponent implements OnInit, OnDestroy {
+  showPassword = false;
+  isLoading = false;
+  errorMessage: string | null = null;
+  loginForm!: FormGroup;
+  private authService = inject(AuthService);
+  private router = inject(Router);
+  private fb = inject(FormBuilder);
+  private toastService = inject(ToastService);
+  private destroy$ = new Subject<void>();
 
-  public user: LoginData = {
-    email: 'emily.johnson@x.dummyjson.com',
-    password: 'emilyspass',
-    rememberMe: false,
-  };
+  ngOnInit(): void {
+    this.initForm();
+  }
 
-  public showPassword = false;
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  private initForm(): void {
+    this.loginForm = this.fb.group({
+      email: ['', [Validators.required, Validators.email]],
+      senha: ['', Validators.required],
+      rememberMe: [false],
+    });
+  }
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
   }
 
-  onSubmit(form: NgForm): void {
-    if (form.invalid) {
-      console.error('O formulário contém erros.');
-      Object.values(form.controls).forEach((control) => {
-        control.markAsTouched();
-      });
+  get email() {
+    return this.loginForm.get('email');
+  }
+
+  get senha() {
+    return this.loginForm.get('senha');
+  }
+
+  public onSubmit(): void {
+    if (this.loginForm.invalid) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
-    console.log('Formulário enviado!');
-    console.log('Valores:', form.value as LoginData);
+    this.isLoading = true;
+    const email = this.loginForm.value.email;
+    const password = this.loginForm.value.senha;
+
+    this.authService
+      .findUsernameByEmail(email)
+      .pipe(
+        switchMap((username) => {
+          if (!username) {
+            return throwError(() => new Error('Email ou senha incorreto.'));
+          }
+          return this.authService.login({ username, password });
+        }),
+        catchError((err) => {
+          this.toastService.show(err.message, 'error');
+          return of(null);
+        }),
+        finalize(() => {
+          this.isLoading = false;
+        }),
+        takeUntil(this.destroy$)
+      )
+      .subscribe((response) => {
+        if (response) {
+          this.toastService.show('Login realizado com sucesso!', 'success');
+          setTimeout(() => this.router.navigate(['/categoria/beauty']), 1000);
+        }
+      });
   }
 }
