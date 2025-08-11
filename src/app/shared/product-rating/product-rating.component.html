@@ -1,0 +1,18 @@
+<div *ngIf="product">
+  <div class="d-flex align-items-center mb-2 rating-stars">
+    <span class="rating-value me-2">{{ product.rating.toFixed(2) }}</span>
+    <ng-container *ngFor="let _ of fullStars">
+      <i class="bi bi-star-fill"></i>
+    </ng-container>
+
+  </div>
+
+  <div class="custom-price">
+    <span class="price-symbol">R$</span>
+    <span class="price-integer">{{ priceInteger }}</span>
+    <span class="price-cents">{{ priceCents }}</span>
+    <span class="discount-text ms-2" *ngIf="product.discountPercentage">
+      {{ product.discountPercentage.toFixed(2) }}% OFF
+    </span>
+  </div>
+</div>

@@ -1,0 +1,45 @@
+@import "../../../styles/base/variables";
+
+.rating-stars {
+  color: $primary-color;
+  font-size: 1rem;
+
+  .rating-value {
+    color: #495057;
+    font-weight: 500;
+  }
+}
+
+.custom-price {
+  display: flex;
+  align-items: flex-start;
+  font-weight: bold;
+  color: #000000;
+  line-height: 1;
+}
+
+.price-symbol {
+  font-size: 1rem;
+  margin-right: 4px;
+  margin-top: 0.2em;
+  font-weight: 400;
+}
+
+.price-integer {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.price-cents {
+  font-size: 1rem;
+  font-weight: 500;
+  margin-left: 2px;
+  margin-top: 0.2em;
+}
+
+.discount-text {
+  color: $primary-color;
+  font-weight: 600;
+  font-size: 1rem;
+  margin-top: 0.2em;
+}
