@@ -9,6 +9,7 @@ import {
 import { ToastService } from '../../shared/services/toast.service';
 import { Subject, takeUntil } from 'rxjs';
 import { UserService } from '../services/user.service';
+import { passwordMatchValidator } from '../../validators/password-match.validators';
 
 @Component({
   selector: 'tt-cadastro',
@@ -44,7 +45,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
         termsCheck: [false, Validators.requiredTrue],
       },
       {
-        validators: this.passwordMatchValidator,
+        validators: passwordMatchValidator,
       }
     );
   }
@@ -52,21 +53,6 @@ export class CadastroComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.destroy$.next();
     this.destroy$.complete();
-  }
-
-  passwordMatchValidator(control: AbstractControl) {
-    const password = control.get('password')?.value;
-    const confirmPassword = control.get('confirmPassword')?.value;
-
-    if (password !== confirmPassword) {
-      control.get('confirmPassword')?.setErrors({ mismatch: true });
-      return { mismatch: true };
-    } else {
-      if (control.get('confirmPassword')?.hasError('mismatch')) {
-        control.get('confirmPassword')?.setErrors(null);
-      }
-      return null;
-    }
   }
 
   public getControl(controlName: string) {
