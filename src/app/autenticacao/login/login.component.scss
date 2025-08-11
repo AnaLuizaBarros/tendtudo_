@@ -21,18 +21,6 @@
   }
 }
 
-.text-custom-orange {
-  color: $secondary-color;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 18px;
-  transition: color 0.2s ease;
-
-  &:hover {
-    color: darken($secondary-color, 10%);
-  }
-}
-
 .cadastrar-box {
   p {
     font-size: 18px;

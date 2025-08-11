@@ -1,24 +1,24 @@
-<div class="container login-container">
+<main class="container login-container">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-5 col-xl-4">
       <div class="text-left acess-text">
-        <h1>Acesse sua conta</h1>
+        <h1 id="login-heading">Acesse sua conta</h1>
         <p class="text-muted">Faça login para acessar sua conta</p>
       </div>
 
-      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate aria-labelledby="login-heading">
 
         <div class="input-container">
-          <input type="email" id="emailInput" placeholder=" " formControlName="email">
+          <input type="email" id="emailInput" placeholder=" " formControlName="email" required>
           <label for="emailInput">Email</label>
         </div>
         <tt-form-control-error [control]="getControl('email')" fieldName="Email"></tt-form-control-error>
 
         <div class="input-container mt-3">
-          <input [type]="showPassword ? 'text' : 'password'" id="passwordInput" placeholder=" " formControlName="senha">
+          <input [type]="showPassword ? 'text' : 'password'" id="passwordInput" placeholder=" " formControlName="senha" required>
           <label for="passwordInput">Senha</label>
-          <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
-            <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+          <button type="button" class="toggle-password" (click)="togglePasswordVisibility()" [attr.aria-label]="showPassword ? 'Esconder senha' : 'Mostrar senha'">
+            <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'" aria-hidden="true"></i>
           </button>
         </div>
         <tt-form-control-error [control]="getControl('senha')" fieldName="Senha"></tt-form-control-error>
@@ -46,4 +46,4 @@
       </div>
     </div>
   </div>
-</div>
+</main>
