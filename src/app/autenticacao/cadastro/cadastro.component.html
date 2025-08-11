@@ -106,9 +106,9 @@
 
           <div class="col-12 mt-4">
             <div class="d-grid">
-              <button type="submit" class="btn btn-custom-orange btn-lg" [disabled]="form.invalid || isLoading">
-                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                <span *ngIf="!isLoading">Criar conta</span>
+              <button type="submit" class="btn btn-custom-orange btn-lg" [disabled]="form.invalid || isLoading()">
+                <tt-loading-spinner *ngIf="isLoading()" size="sm"></tt-loading-spinner>
+                <span *ngIf="!isLoading()">Criar conta</span>
               </button>
             </div>
           </div>

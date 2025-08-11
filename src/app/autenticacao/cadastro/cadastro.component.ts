@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   FormBuilder,
@@ -7,7 +7,7 @@ import {
   AbstractControl,
 } from '@angular/forms';
 import { ToastService } from '../../shared/services/toast.service';
-import { Subject, takeUntil } from 'rxjs';
+import { finalize, Subject, takeUntil } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { passwordMatchValidator } from '../../validators/password-match.validators';
 import { FormComponent } from '../../shared/directives/form.component';
@@ -22,7 +22,7 @@ export class CadastroComponent
   implements OnInit, OnDestroy
 {
   form!: FormGroup;
-  isLoading = false;
+  isLoading = signal(false);
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -67,16 +67,18 @@ export class CadastroComponent
       return;
     }
 
-    this.isLoading = true;
+    this.isLoading = signal(true);
 
     const { confirmPassword, termsCheck, ...userData } = this.form.value;
 
     this.userService
       .register(userData)
-      .pipe(takeUntil(this.destroy$))
+      .pipe(
+        finalize(() => (this.isLoading = signal(false))),
+        takeUntil(this.destroy$)
+      )
       .subscribe({
         next: (newUser) => {
-          this.isLoading = false;
           console.log('Usuário cadastrado (simulado):', newUser);
           this.toastService.show('Cadastro realizado com sucesso!', 'success');
           setTimeout(() => {
@@ -84,7 +86,6 @@ export class CadastroComponent
           }, 1500);
         },
         error: (err) => {
-          this.isLoading = false;
           this.toastService.show(err.message, 'error');
         },
       });

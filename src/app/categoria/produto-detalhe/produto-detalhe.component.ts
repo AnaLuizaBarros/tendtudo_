@@ -1,7 +1,8 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { ProductService } from '../services/product.service';
 import { Product } from '../../models/product.model';
+import { ProductService } from '../services/product.service';
+import { finalize, pipe } from 'rxjs';
 
 @Component({
   selector: 'tt-produto-detalhe',
@@ -12,18 +13,23 @@ export class ProdutoDetalheComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
   private router = inject(Router);
+  isLoading = signal(true);
 
   product = signal<Product | undefined>(undefined);
-
   isFavorite = signal(false);
 
   ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
-      this.productService.getProductById(id).subscribe((productData) => {
-        this.product.set(productData);
-      });
+      this.isLoading = signal(true);
+
+      this.productService
+        .getProductById(id)
+        .pipe(finalize(() => (this.isLoading = signal(false))))
+        .subscribe((productData) => {
+          this.product.set(productData);
+        });
     }
   }
 

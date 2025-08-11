@@ -1,5 +1,5 @@
 import { Router } from '@angular/router';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthService } from '../services/auth.service';
 import {
@@ -20,7 +20,7 @@ import { FormComponent } from '../../shared/directives/form.component';
   styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent extends FormComponent implements OnInit, OnDestroy {
-  isLoading = false;
+  isLoading = signal(false);
   errorMessage: string | null = null;
   form!: FormGroup;
   private authService = inject(AuthService);
@@ -56,7 +56,7 @@ export class LoginComponent extends FormComponent implements OnInit, OnDestroy {
       return;
     }
 
-    this.isLoading = true;
+    this.isLoading = signal(true);
     const email = this.form.value.email;
     const password = this.form.value.senha;
 
@@ -74,7 +74,7 @@ export class LoginComponent extends FormComponent implements OnInit, OnDestroy {
           return of(null);
         }),
         finalize(() => {
-          this.isLoading = false;
+          this.isLoading = signal(false);
         }),
         takeUntil(this.destroy$)
       )

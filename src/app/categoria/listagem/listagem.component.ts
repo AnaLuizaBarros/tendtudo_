@@ -11,6 +11,7 @@ import {
 import { ProductService } from '../services/product.service';
 import { ActivatedRoute } from '@angular/router';
 import { Product, SORT_OPTIONS, SortOption } from '../../models/product.model';
+import { finalize } from 'rxjs';
 
 @Component({
   selector: 'tt-listagem',
@@ -25,6 +26,7 @@ export class ListagemComponent implements OnInit {
   currentPage = signal<number>(1);
   sortOption = signal<SortOption>('relevance');
   isDropdownOpen = signal(false);
+  isLoading = signal(true);
 
   @ViewChild('dropdownContainer') dropdownContainerRef!: ElementRef;
 
@@ -91,8 +93,10 @@ export class ListagemComponent implements OnInit {
   getProducts(): void {
     const cat = this.category();
     const page = this.currentPage();
+    this.isLoading.set(true);
     this.productService
       .getProductsByCategory(cat, page, this.productsPerPage)
+      .pipe(finalize(() => this.isLoading.set(false)))
       .subscribe((response) => {
         this.rawProducts.set(response.products);
         this.totalProducts.set(response.total);
