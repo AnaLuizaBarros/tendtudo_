@@ -7,7 +7,7 @@
         <p class="text-muted">Vamos configurar tudo para que você possa acessar sua conta pessoal.</p>
       </div>
 
-      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="row g-4">
           <div class="col-md-6">
             <div class="input-container">
@@ -95,7 +95,6 @@
             <tt-form-control-error [control]="getControl('zip')" fieldName="CEP"></tt-form-control-error>
           </div>
 
-          <!-- Termos e Condições -->
           <div class="col-12">
             <label class="custom-checkbox">
               Concordo com todos os <a href="#" class="text-custom-orange">Termos</a> e <a href="#" class="text-custom-orange">Políticas de privacidade</a>
@@ -105,10 +104,9 @@
             <tt-form-control-error [control]="getControl('termsCheck')" fieldName="Termos"></tt-form-control-error>
           </div>
 
-          <!-- Botão de Submit -->
           <div class="col-12 mt-4">
             <div class="d-grid">
-              <button type="submit" class="btn btn-custom-orange btn-lg" [disabled]="registerForm.invalid || isLoading">
+              <button type="submit" class="btn btn-custom-orange btn-lg" [disabled]="form.invalid || isLoading">
                 <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 <span *ngIf="!isLoading">Criar conta</span>
               </button>

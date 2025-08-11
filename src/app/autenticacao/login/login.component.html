@@ -6,16 +6,13 @@
         <p class="text-muted">Faça login para acessar sua conta</p>
       </div>
 
-      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" novalidate>
 
-        <div class="input-container mb-3">
+        <div class="input-container">
           <input type="email" id="emailInput" placeholder=" " formControlName="email">
           <label for="emailInput">Email</label>
         </div>
-        <div *ngIf="email?.invalid && (email?.dirty || email?.touched)" class="text-danger small mt-1 mb-3">
-          <div *ngIf="email?.errors?.['required']">O email é obrigatório.</div>
-          <div *ngIf="email?.errors?.['email']">Por favor, insira um email válido.</div>
-        </div>
+        <tt-form-control-error [control]="getControl('email')" fieldName="Email"></tt-form-control-error>
 
         <div class="input-container">
           <input [type]="showPassword ? 'text' : 'password'" id="passwordInput" placeholder=" " formControlName="senha">
@@ -24,9 +21,7 @@
             <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
           </button>
         </div>
-        <div *ngIf="senha?.invalid && (senha?.dirty || senha?.touched)" class="text-danger small mt-1">
-          <div *ngIf="senha?.errors?.['required']">A senha é obrigatória.</div>
-        </div>
+        <tt-form-control-error [control]="getControl('senha')" fieldName="Senha"></tt-form-control-error>
 
         <div class="d-flex justify-content-between align-items-center my-4">
           <label class="custom-checkbox">Lembrar-me
@@ -37,7 +32,7 @@
         </div>
 
         <div class="d-grid">
-          <button type="submit" class="btn btn-custom-orange btn-lg" [disabled]="loginForm.invalid || isLoading">
+          <button type="submit" class="btn btn-custom-orange btn-lg" [disabled]="form.invalid || isLoading">
             <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
             <span *ngIf="!isLoading">Entrar</span>
           </button>
@@ -46,7 +41,7 @@
       </form>
       <div class="text-center mt-4 cadastrar-box">
         <p class="text-muted">
-          Não tem uma conta? <a href="#" class="text-custom-orange fw-bold">Cadastre-se</a>
+          Não tem uma conta? <a routerLink="/auth/cadastro" class="text-custom-orange fw-bold">Cadastre-se</a>
         </p>
       </div>
     </div>

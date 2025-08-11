@@ -12,22 +12,26 @@ import {
   throwError,
 } from 'rxjs';
 import { ToastService } from '../../shared/services/toast.service';
+import { FormComponent } from '../../shared/directives/form.component';
 
 @Component({
   selector: 'tt-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  showPassword = false;
+export class LoginComponent extends FormComponent implements OnInit, OnDestroy {
   isLoading = false;
   errorMessage: string | null = null;
-  loginForm!: FormGroup;
+  form!: FormGroup;
   private authService = inject(AuthService);
   private router = inject(Router);
   private fb = inject(FormBuilder);
   private toastService = inject(ToastService);
   private destroy$ = new Subject<void>();
+
+  constructor() {
+    super();
+  }
 
   ngOnInit(): void {
     this.initForm();
@@ -39,41 +43,29 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
   private initForm(): void {
-    this.loginForm = this.fb.group({
+    this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       senha: ['', Validators.required],
       rememberMe: [false],
     });
   }
 
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  get email() {
-    return this.loginForm.get('email');
-  }
-
-  get senha() {
-    return this.loginForm.get('senha');
-  }
-
   public onSubmit(): void {
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched();
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       return;
     }
 
     this.isLoading = true;
-    const email = this.loginForm.value.email;
-    const password = this.loginForm.value.senha;
+    const email = this.form.value.email;
+    const password = this.form.value.senha;
 
     this.authService
       .findUsernameByEmail(email)
       .pipe(
         switchMap((username) => {
           if (!username) {
-            return throwError(() => new Error('Email ou senha incorreto.'));
+            return throwError(() => new Error('Email ou senha incorretos.'));
           }
           return this.authService.login({ username, password });
         }),

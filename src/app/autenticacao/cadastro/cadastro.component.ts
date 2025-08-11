@@ -10,16 +10,18 @@ import { ToastService } from '../../shared/services/toast.service';
 import { Subject, takeUntil } from 'rxjs';
 import { UserService } from '../services/user.service';
 import { passwordMatchValidator } from '../../validators/password-match.validators';
+import { FormComponent } from '../../shared/directives/form.component';
 
 @Component({
   selector: 'tt-cadastro',
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.scss'],
 })
-export class CadastroComponent implements OnInit, OnDestroy {
-  registerForm!: FormGroup;
-  showPassword = false;
-  showConfirmPassword = false;
+export class CadastroComponent
+  extends FormComponent
+  implements OnInit, OnDestroy
+{
+  form!: FormGroup;
   isLoading = false;
 
   private fb = inject(FormBuilder);
@@ -30,7 +32,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
-    this.registerForm = this.fb.group(
+    this.form = this.fb.group(
       {
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
@@ -55,21 +57,9 @@ export class CadastroComponent implements OnInit, OnDestroy {
     this.destroy$.complete();
   }
 
-  public getControl(controlName: string) {
-    return this.registerForm.get(controlName);
-  }
-
-  togglePasswordVisibility(): void {
-    this.showPassword = !this.showPassword;
-  }
-
-  toggleConfirmPasswordVisibility(): void {
-    this.showConfirmPassword = !this.showConfirmPassword;
-  }
-
   onSubmit(): void {
-    if (this.registerForm.invalid) {
-      this.registerForm.markAllAsTouched();
+    if (this.form.invalid) {
+      this.form.markAllAsTouched();
       this.toastService.show(
         'Por favor, preencha todos os campos corretamente.',
         'error'
@@ -79,8 +69,7 @@ export class CadastroComponent implements OnInit, OnDestroy {
 
     this.isLoading = true;
 
-    const { confirmPassword, termsCheck, ...userData } =
-      this.registerForm.value;
+    const { confirmPassword, termsCheck, ...userData } = this.form.value;
 
     this.userService
       .register(userData)
