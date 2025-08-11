@@ -14,9 +14,7 @@
               <input type="text" id="firstName" placeholder=" " formControlName="firstName">
               <label for="firstName">Nome</label>
             </div>
-            <div *ngIf="getControl('firstName')?.invalid && (getControl('firstName')?.dirty || getControl('firstName')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('firstName')?.errors?.['required']">O nome é obrigatório.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('firstName')" fieldName="Nome"></tt-form-control-error>
           </div>
 
           <div class="col-md-6">
@@ -24,9 +22,7 @@
               <input type="text" id="lastName" placeholder=" " formControlName="lastName">
               <label for="lastName">Sobrenome</label>
             </div>
-            <div *ngIf="getControl('lastName')?.invalid && (getControl('lastName')?.dirty || getControl('lastName')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('lastName')?.errors?.['required']">O sobrenome é obrigatório.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('lastName')" fieldName="Sobrenome"></tt-form-control-error>
           </div>
 
           <div class="col-md-6">
@@ -34,20 +30,15 @@
               <input type="email" id="email" placeholder=" " formControlName="email">
               <label for="email">Email</label>
             </div>
-            <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('email')?.errors?.['required']">O email é obrigatório.</div>
-              <div *ngIf="getControl('email')?.errors?.['email']">Insira um email válido.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('email')" fieldName="Email"></tt-form-control-error>
           </div>
 
           <div class="col-md-6">
             <div class="input-container">
-              <input type="tel" id="phone" placeholder=" " formControlName="phone">
+              <input type="tel" id="phone" placeholder=" " formControlName="phone" mask="(00) 00000-0000">
               <label for="phone">Número de telefone</label>
             </div>
-            <div *ngIf="getControl('phone')?.invalid && (getControl('phone')?.dirty || getControl('phone')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('phone')?.errors?.['required']">O telefone é obrigatório.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('phone')" fieldName="Telefone"></tt-form-control-error>
           </div>
 
           <div class="col-12">
@@ -58,10 +49,7 @@
                 <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
               </button>
             </div>
-            <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('password')?.errors?.['required']">A senha é obrigatória.</div>
-              <div *ngIf="getControl('password')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('password')" fieldName="Senha"></tt-form-control-error>
           </div>
 
           <div class="col-12">
@@ -72,10 +60,7 @@
                 <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
               </button>
             </div>
-            <div *ngIf="getControl('confirmPassword')?.invalid && (getControl('confirmPassword')?.dirty || getControl('confirmPassword')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('confirmPassword')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
-              <div *ngIf="getControl('confirmPassword')?.errors?.['mismatch']">As senhas não coincidem.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('confirmPassword')" fieldName="Confirmação da senha"></tt-form-control-error>
           </div>
 
           <div class="col-12">
@@ -83,56 +68,44 @@
               <input type="text" id="address" placeholder=" " formControlName="address">
               <label for="address">Endereço</label>
             </div>
-            <div *ngIf="getControl('address')?.invalid && (getControl('address')?.dirty || getControl('address')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('address')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
-              <div *ngIf="getControl('address')?.errors?.['mismatch']">As senhas não coincidem.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('address')" fieldName="Endereço"></tt-form-control-error>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-12">
             <div class="input-container">
               <input type="text" id="city" placeholder=" " formControlName="city">
               <label for="city">Cidade</label>
             </div>
-            <div *ngIf="getControl('city')?.invalid && (getControl('city')?.dirty || getControl('city')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('city')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
-              <div *ngIf="getControl('city')?.errors?.['mismatch']">As senhas não coincidem.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('city')" fieldName="Cidade"></tt-form-control-error>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-12">
             <div class="input-container">
               <input type="text" id="country" placeholder=" " formControlName="country">
               <label for="country">País</label>
             </div>
-            <div *ngIf="getControl('country')?.invalid && (getControl('country')?.dirty || getControl('country')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('country')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
-              <div *ngIf="getControl('country')?.errors?.['mismatch']">As senhas não coincidem.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('country')" fieldName="País"></tt-form-control-error>
           </div>
 
-          <div class="col-md-4">
+          <div class="col-md-12">
             <div class="input-container">
-              <input type="text" id="zip" placeholder=" " formControlName="zip">
+              <input type="text" id="zip" placeholder=" " formControlName="zip" mask="00000-000">
               <label for="zip">CEP</label>
             </div>
-            <div *ngIf="getControl('zip')?.invalid && (getControl('zip')?.dirty || getControl('zip')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('zip')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
-              <div *ngIf="getControl('zip')?.errors?.['mismatch']">As senhas não coincidem.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('zip')" fieldName="CEP"></tt-form-control-error>
           </div>
 
+          <!-- Termos e Condições -->
           <div class="col-12">
             <label class="custom-checkbox">
               Concordo com todos os <a href="#" class="text-custom-orange">Termos</a> e <a href="#" class="text-custom-orange">Políticas de privacidade</a>
               <input type="checkbox" formControlName="termsCheck">
               <span class="checkmark"></span>
             </label>
-            <div *ngIf="getControl('termsCheck')?.invalid && (getControl('termsCheck')?.dirty || getControl('termsCheck')?.touched)" class="text-danger small mt-1">
-              <div *ngIf="getControl('termsCheck')?.errors?.['required']">Você deve aceitar os termos.</div>
-            </div>
+            <tt-form-control-error [control]="getControl('termsCheck')" fieldName="Termos"></tt-form-control-error>
           </div>
 
+          <!-- Botão de Submit -->
           <div class="col-12 mt-4">
             <div class="d-grid">
               <button type="submit" class="btn btn-custom-orange btn-lg" [disabled]="registerForm.invalid || isLoading">
