@@ -1,35 +1,37 @@
-<nav class="nav-header">
+<header class="nav-header">
   <div class="container">
     <div class="row gy-4 justify-content-center">
       <div class="col-lg-2 col-md-6">
-        <img src="../../../assets/TendTudo.svg" alt="" class="logo_header">
+        <a [routerLink]="['/categoria/beauty']" aria-label="Página inicial da TendTudo">
+          <img src="../../../assets/TendTudo.svg" alt="Logo da TendTudo - Ir para a página inicial" class="logo_header">
+        </a>
       </div>
+
       <div class="col-lg-5 col-md-6">
-        <form (ngSubmit)="onSearch()" class="search-box-custom">
+        <form (ngSubmit)="onSearch()" class="search-box-custom" role="search">
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Buscar produtos..." aria-label="Buscar produtos" [(ngModel)]="searchQuery" name="searchQuery">
-            <button class="btn" type="submit" aria-label="Buscar">
-              <i class="bi bi-search"></i>
+            <input type="text" class="form-control" placeholder="Buscar por..." aria-label="Buscar produtos" [(ngModel)]="searchQuery" name="searchQuery" id="searchInput">
+            <button class="btn" type="submit" aria-label="Realizar busca">
+              <i class="bi bi-search" aria-hidden="true"></i>
             </button>
           </div>
         </form>
-        <div class="header_categorias">
-          <a *ngFor="let categoria of categorias" class="header_categorias__link" [routerLink]="['/categoria', categoria]" routerLinkActive="active">{{categoria | uppercase}}</a>
-        </div>
+
+        <nav class="header_categorias" aria-label="Navegação de categorias">
+          <a *ngFor="let categoria of categorias" class="header_categorias__link" [routerLink]="['/categoria', categoria]" routerLinkActive="active">
+            {{categoria | uppercase}}
+          </a>
+        </nav>
       </div>
+
       <div class="col-lg-2 col-md-6 text-center icons-header">
-
-        <a href="" class="user-icon">
-          <img src="../../../assets/person.svg" alt="">
+        <a routerLink="/perfil" class="icon-link user-icon" aria-label="Acessar perfil do usuário">
+          <i class="bi bi-person" aria-hidden="true"></i>
         </a>
-
-        <a href="">
-          <img src="../../../assets/shopping_bag.svg" alt="">
+        <a routerLink="/carrinho" class="icon-link" aria-label="Ver carrinho de compras">
+          <i class="bi bi-bag" aria-hidden="true"></i>
         </a>
-
       </div>
     </div>
   </div>
-
-
-</nav>
+</header>

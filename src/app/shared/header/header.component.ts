@@ -11,7 +11,7 @@ export class HeaderComponent {
   public searchQuery: string = '';
   private router = inject(Router);
 
-  onSearch(): void {
+  public onSearch(): void {
     if (this.searchQuery.trim()) {
       this.router.navigate(['/search'], {
         queryParams: { q: this.searchQuery.trim() },
