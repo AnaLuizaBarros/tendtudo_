@@ -1,11 +1,6 @@
 import { Component, inject, OnDestroy, OnInit, signal } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  FormBuilder,
-  FormGroup,
-  Validators,
-  AbstractControl,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastService } from '../../shared/services/toast.service';
 import { finalize, Subject, takeUntil } from 'rxjs';
 import { UserService } from '../services/user.service';
@@ -32,6 +27,10 @@ export class CadastroComponent
   private destroy$ = new Subject<void>();
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  private initForm(): void {
     this.form = this.fb.group(
       {
         firstName: ['', Validators.required],
@@ -57,7 +56,7 @@ export class CadastroComponent
     this.destroy$.complete();
   }
 
-  onSubmit(): void {
+  public onSubmit(): void {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
       this.toastService.show(
@@ -79,7 +78,6 @@ export class CadastroComponent
       )
       .subscribe({
         next: (newUser) => {
-          console.log('Usuário cadastrado (simulado):', newUser);
           this.toastService.show('Cadastro realizado com sucesso!', 'success');
           setTimeout(() => {
             this.router.navigate(['/auth/login']);
