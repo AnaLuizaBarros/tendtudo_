@@ -7,18 +7,8 @@
     <h5 class="card-title">{{ product.title }}</h5>
     <p class="card-text text-muted small text-capitalize">{{ product.category }}</p>
 
-    <div class="d-flex align-items-center mb-2 rating-stars">
-      <span class="me-2">{{ product.rating}}</span>
-    </div>
+    <tt-product-rating [product]="product"></tt-product-rating>
 
-    <div class="custom-price">
-      <span class="price-symbol">R$</span>
-      <span class="price-integer">{{ product.price.toFixed(2).split('.')[0] }}</span>
-      <span class="price-cents">{{ product.price.toFixed(2).split('.')[1] }}</span>
-      <span class="discount-text ms-2" *ngIf="product.discountPercentage">
-        {{ product.discountPercentage }}% OFF
-      </span>
-    </div>
   </div>
 
 </a>
