@@ -11,7 +11,6 @@ export interface Product {
   thumbnail: string;
   images: string[];
 }
-
 export type SortOption = 'relevance' | 'priceDesc' | 'priceAsc' | 'rating';
 
 export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
@@ -20,3 +19,9 @@ export const SORT_OPTIONS: { value: SortOption; label: string }[] = [
   { value: 'priceAsc', label: 'Preço: Menor - maior' },
   { value: 'rating', label: 'Mais vendidos' },
 ];
+export interface PaginatedResponse<T> {
+  products: T[];
+  total: number;
+  skip: number;
+  limit: number;
+}

@@ -1,12 +1,12 @@
+import { TokenService } from './token.service';
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Observable, throwError } from 'rxjs';
+import { Observable } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AuthResponse } from '../../models/auth.model';
-import { TokenService } from './token.service';
 import { environment } from '../../environments/environment';
-
+import { handleError } from '../../utils/error-handler';
 interface UserSearchResponse {
   users: { username: string }[];
 }
@@ -17,6 +17,7 @@ interface UserSearchResponse {
 export class AuthService {
   private baseApiUrl = environment.apiUrl;
   private tokenService = inject(TokenService);
+
   private http = inject(HttpClient);
   private router = inject(Router);
 
@@ -27,7 +28,7 @@ export class AuthService {
       )
       .pipe(
         map((response) => response.users?.[0]?.username || null),
-        catchError(this.handleError)
+        catchError(handleError)
       );
   }
 
@@ -41,22 +42,16 @@ export class AuthService {
         tap((response) => {
           this.tokenService.salvarToken(response.accessToken);
         }),
-        catchError(this.handleError)
+        catchError(handleError)
       );
   }
 
   logout(): void {
     this.tokenService.excluirToken();
-    this.router.navigate(['/login']);
+    this.router.navigate(['/auth/login']);
   }
 
   isAuthenticated(): boolean {
     return this.tokenService.possuiToken();
-  }
-
-  private handleError(error: HttpErrorResponse) {
-    const errorMessage =
-      error.error?.message || 'Credenciais inválidas ou erro de rede.';
-    return throwError(() => new Error(errorMessage));
   }
 }
