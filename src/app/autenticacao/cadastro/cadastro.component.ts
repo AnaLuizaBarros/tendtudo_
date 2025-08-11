@@ -1,15 +1,77 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import {
+  FormBuilder,
+  FormGroup,
+  Validators,
+  AbstractControl,
+} from '@angular/forms';
+import { ToastService } from '../../shared/services/toast.service';
+import { Subject, takeUntil } from 'rxjs';
+import { UserService } from '../services/user.service';
 
 @Component({
   selector: 'tt-cadastro',
   templateUrl: './cadastro.component.html',
-  styleUrl: './cadastro.component.scss',
+  styleUrls: ['./cadastro.component.scss'],
 })
-export class CadastroComponent {
+export class CadastroComponent implements OnInit, OnDestroy {
+  registerForm!: FormGroup;
   showPassword = false;
   showConfirmPassword = false;
+  isLoading = false;
 
-  constructor() {}
+  private fb = inject(FormBuilder);
+  private router = inject(Router);
+  private toastService = inject(ToastService);
+  private userService = inject(UserService);
+
+  private destroy$ = new Subject<void>();
+
+  ngOnInit(): void {
+    this.registerForm = this.fb.group(
+      {
+        firstName: ['', Validators.required],
+        lastName: ['', Validators.required],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', Validators.required],
+        password: ['', [Validators.required, Validators.minLength(6)]],
+        confirmPassword: ['', Validators.required],
+        address: ['', Validators.required],
+        city: ['', Validators.required],
+        country: ['', Validators.required],
+        zip: ['', Validators.required],
+        termsCheck: [false, Validators.requiredTrue],
+      },
+      {
+        validators: this.passwordMatchValidator,
+      }
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
+  passwordMatchValidator(control: AbstractControl) {
+    const password = control.get('password')?.value;
+    const confirmPassword = control.get('confirmPassword')?.value;
+
+    if (password !== confirmPassword) {
+      control.get('confirmPassword')?.setErrors({ mismatch: true });
+      return { mismatch: true };
+    } else {
+      if (control.get('confirmPassword')?.hasError('mismatch')) {
+        control.get('confirmPassword')?.setErrors(null);
+      }
+      return null;
+    }
+  }
+
+  public getControl(controlName: string) {
+    return this.registerForm.get(controlName);
+  }
 
   togglePasswordVisibility(): void {
     this.showPassword = !this.showPassword;
@@ -17,5 +79,39 @@ export class CadastroComponent {
 
   toggleConfirmPasswordVisibility(): void {
     this.showConfirmPassword = !this.showConfirmPassword;
+  }
+
+  onSubmit(): void {
+    if (this.registerForm.invalid) {
+      this.registerForm.markAllAsTouched();
+      this.toastService.show(
+        'Por favor, preencha todos os campos corretamente.',
+        'error'
+      );
+      return;
+    }
+
+    this.isLoading = true;
+
+    const { confirmPassword, termsCheck, ...userData } =
+      this.registerForm.value;
+
+    this.userService
+      .register(userData)
+      .pipe(takeUntil(this.destroy$))
+      .subscribe({
+        next: (newUser) => {
+          this.isLoading = false;
+          console.log('Usuário cadastrado (simulado):', newUser);
+          this.toastService.show('Cadastro realizado com sucesso!', 'success');
+          setTimeout(() => {
+            this.router.navigate(['/auth/login']);
+          }, 1500);
+        },
+        error: (err) => {
+          this.isLoading = false;
+          this.toastService.show(err.message, 'error');
+        },
+      });
   }
 }

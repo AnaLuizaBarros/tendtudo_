@@ -7,96 +7,138 @@
         <p class="text-muted">Vamos configurar tudo para que você possa acessar sua conta pessoal.</p>
       </div>
 
-      <form>
-        <div class="row g-3">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+        <div class="row g-4">
           <div class="col-md-6">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="firstName" placeholder="Nome" value="Emily">
+            <div class="input-container">
+              <input type="text" id="firstName" placeholder=" " formControlName="firstName">
               <label for="firstName">Nome</label>
             </div>
+            <div *ngIf="getControl('firstName')?.invalid && (getControl('firstName')?.dirty || getControl('firstName')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('firstName')?.errors?.['required']">O nome é obrigatório.</div>
+            </div>
           </div>
+
           <div class="col-md-6">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="lastName" placeholder="Sobrenome" value="Johnson">
+            <div class="input-container">
+              <input type="text" id="lastName" placeholder=" " formControlName="lastName">
               <label for="lastName">Sobrenome</label>
             </div>
+            <div *ngIf="getControl('lastName')?.invalid && (getControl('lastName')?.dirty || getControl('lastName')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('lastName')?.errors?.['required']">O sobrenome é obrigatório.</div>
+            </div>
           </div>
 
           <div class="col-md-6">
-            <div class="form-floating">
-              <input type="email" class="form-control" id="email" placeholder="Email" value="emily.johnson@x.dummyjson.com">
+            <div class="input-container">
+              <input type="email" id="email" placeholder=" " formControlName="email">
               <label for="email">Email</label>
             </div>
+            <div *ngIf="getControl('email')?.invalid && (getControl('email')?.dirty || getControl('email')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('email')?.errors?.['required']">O email é obrigatório.</div>
+              <div *ngIf="getControl('email')?.errors?.['email']">Insira um email válido.</div>
+            </div>
           </div>
+
           <div class="col-md-6">
-            <div class="form-floating">
-              <input type="tel" class="form-control" id="phone" placeholder="Número de telefone" value="+81 965-431-3024">
+            <div class="input-container">
+              <input type="tel" id="phone" placeholder=" " formControlName="phone">
               <label for="phone">Número de telefone</label>
             </div>
-          </div>
-
-          <div class="col-12">
-            <div class="input-group">
-              <div class="form-floating">
-                <input [type]="showPassword ? 'text' : 'password'" class="form-control" id="password" placeholder="Senha" value="emilyspass">
-                <label for="password">Senha</label>
-              </div>
-              <button class="btn btn-outline-secondary" type="button" (click)="togglePasswordVisibility()" aria-label="Mostrar ou esconder a senha">
-                <i class="bi" [ngClass]="showPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
-              </button>
+            <div *ngIf="getControl('phone')?.invalid && (getControl('phone')?.dirty || getControl('phone')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('phone')?.errors?.['required']">O telefone é obrigatório.</div>
             </div>
           </div>
 
           <div class="col-12">
-            <div class="input-group">
-              <div class="form-floating">
-                <input [type]="showConfirmPassword ? 'text' : 'password'" class="form-control" id="confirmPassword" placeholder="Confirmar senha" value="emilyspass">
-                <label for="confirmPassword">Confirmar senha</label>
-              </div>
-              <button class="btn btn-outline-secondary" type="button" (click)="toggleConfirmPasswordVisibility()" aria-label="Mostrar ou esconder a senha de confirmação">
-                <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye-slash' : 'bi-eye'"></i>
+            <div class="input-container">
+              <input [type]="showPassword ? 'text' : 'password'" id="password" placeholder=" " formControlName="password">
+              <label for="password">Senha</label>
+              <button type="button" class="toggle-password" (click)="togglePasswordVisibility()">
+                <i class="bi" [ngClass]="showPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
               </button>
+            </div>
+            <div *ngIf="getControl('password')?.invalid && (getControl('password')?.dirty || getControl('password')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('password')?.errors?.['required']">A senha é obrigatória.</div>
+              <div *ngIf="getControl('password')?.errors?.['minlength']">A senha deve ter no mínimo 6 caracteres.</div>
             </div>
           </div>
 
           <div class="col-12">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="address" placeholder="Endereço" value="626 Main Street">
+            <div class="input-container">
+              <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" placeholder=" " formControlName="confirmPassword">
+              <label for="confirmPassword">Confirmar senha</label>
+              <button type="button" class="toggle-password" (click)="toggleConfirmPasswordVisibility()">
+                <i class="bi" [ngClass]="showConfirmPassword ? 'bi-eye' : 'bi-eye-slash'"></i>
+              </button>
+            </div>
+            <div *ngIf="getControl('confirmPassword')?.invalid && (getControl('confirmPassword')?.dirty || getControl('confirmPassword')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('confirmPassword')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
+              <div *ngIf="getControl('confirmPassword')?.errors?.['mismatch']">As senhas não coincidem.</div>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="input-container">
+              <input type="text" id="address" placeholder=" " formControlName="address">
               <label for="address">Endereço</label>
             </div>
+            <div *ngIf="getControl('address')?.invalid && (getControl('address')?.dirty || getControl('address')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('address')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
+              <div *ngIf="getControl('address')?.errors?.['mismatch']">As senhas não coincidem.</div>
+            </div>
           </div>
 
-          <div class="col-md-12">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="city" placeholder="Cidade" value="Phoenix">
+          <div class="col-md-4">
+            <div class="input-container">
+              <input type="text" id="city" placeholder=" " formControlName="city">
               <label for="city">Cidade</label>
             </div>
-          </div>
-          <div class="col-md-12">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="country" placeholder="País" value="United States">
-              <label for="country">País</label>
+            <div *ngIf="getControl('city')?.invalid && (getControl('city')?.dirty || getControl('city')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('city')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
+              <div *ngIf="getControl('city')?.errors?.['mismatch']">As senhas não coincidem.</div>
             </div>
           </div>
-          <div class="col-md-12">
-            <div class="form-floating">
-              <input type="text" class="form-control" id="zip" placeholder="CEP" value="29112">
+
+          <div class="col-md-4">
+            <div class="input-container">
+              <input type="text" id="country" placeholder=" " formControlName="country">
+              <label for="country">País</label>
+            </div>
+            <div *ngIf="getControl('country')?.invalid && (getControl('country')?.dirty || getControl('country')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('country')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
+              <div *ngIf="getControl('country')?.errors?.['mismatch']">As senhas não coincidem.</div>
+            </div>
+          </div>
+
+          <div class="col-md-4">
+            <div class="input-container">
+              <input type="text" id="zip" placeholder=" " formControlName="zip">
               <label for="zip">CEP</label>
+            </div>
+            <div *ngIf="getControl('zip')?.invalid && (getControl('zip')?.dirty || getControl('zip')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('zip')?.errors?.['required']">A confirmação da senha é obrigatória.</div>
+              <div *ngIf="getControl('zip')?.errors?.['mismatch']">As senhas não coincidem.</div>
             </div>
           </div>
 
           <div class="col-12">
-            <div class="form-check">
-              <input class="form-check-input" type="checkbox" value="" id="termsCheck">
-              <label class="form-check-label" for="termsCheck">
-                Concordo com todos os <a href="#" class="text-custom-orange">Termos</a> e <a href="#" class="text-custom-orange">Políticas de privacidade</a>
-              </label>
+            <label class="custom-checkbox">
+              Concordo com todos os <a href="#" class="text-custom-orange">Termos</a> e <a href="#" class="text-custom-orange">Políticas de privacidade</a>
+              <input type="checkbox" formControlName="termsCheck">
+              <span class="checkmark"></span>
+            </label>
+            <div *ngIf="getControl('termsCheck')?.invalid && (getControl('termsCheck')?.dirty || getControl('termsCheck')?.touched)" class="text-danger small mt-1">
+              <div *ngIf="getControl('termsCheck')?.errors?.['required']">Você deve aceitar os termos.</div>
             </div>
           </div>
 
           <div class="col-12 mt-4">
             <div class="d-grid">
-              <button type="submit" class="btn btn-custom-orange btn-lg">Criar conta</button>
+              <button type="submit" class="btn btn-custom-orange btn-lg" [disabled]="registerForm.invalid || isLoading">
+                <span *ngIf="isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                <span *ngIf="!isLoading">Criar conta</span>
+              </button>
             </div>
           </div>
         </div>
@@ -104,7 +146,7 @@
 
       <div class="text-center mt-4">
         <p class="text-muted">
-          Já tem uma conta? <a href="#" class="text-custom-orange fw-bold">Faça login</a>
+          Já tem uma conta? <a routerLink="/auth/login" class="text-custom-orange fw-bold">Faça login</a>
         </p>
       </div>
 

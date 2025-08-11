@@ -5,6 +5,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { AuthResponse } from '../../models/auth.model';
 import { TokenService } from './token.service';
+import { environment } from '../../environments/environment';
 
 interface UserSearchResponse {
   users: { username: string }[];
@@ -14,7 +15,7 @@ interface UserSearchResponse {
   providedIn: 'root',
 })
 export class AuthService {
-  private baseApiUrl = 'https://dummyjson.com';
+  private baseApiUrl = environment.apiUrl;
   private tokenService = inject(TokenService);
   private http = inject(HttpClient);
   private router = inject(Router);
