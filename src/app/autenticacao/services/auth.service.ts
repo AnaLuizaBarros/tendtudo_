@@ -1,34 +1,31 @@
-import { inject, Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-import { environment } from '../../environments/environment';
 import { AuthResponse } from '../../models/auth.model';
+import { TokenService } from './token.service';
+
 interface UserSearchResponse {
   users: { username: string }[];
 }
+
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = environment.apiUrl;
-  private authTokenKey = 'authToken';
+  private baseApiUrl = 'https://dummyjson.com';
+  private tokenService = inject(TokenService);
   private http = inject(HttpClient);
   private router = inject(Router);
 
   findUsernameByEmail(email: string): Observable<string | null> {
     return this.http
       .get<UserSearchResponse>(
-        `${this.apiUrl}/users/filter?key=email&value=${email}`
+        `${this.baseApiUrl}/users/filter?key=email&value=${email}`
       )
       .pipe(
-        map((response) => {
-          if (response.users && response.users.length > 0) {
-            return response.users[0].username;
-          }
-          return null;
-        }),
+        map((response) => response.users?.[0]?.username || null),
         catchError(this.handleError)
       );
   }
@@ -38,36 +35,27 @@ export class AuthService {
     password: string;
   }): Observable<AuthResponse> {
     return this.http
-      .post<AuthResponse>(`${this.apiUrl}/auth/login`, credentials)
+      .post<AuthResponse>(`${this.baseApiUrl}/auth/login`, credentials)
       .pipe(
         tap((response) => {
-          localStorage.setItem(this.authTokenKey, response.token);
+          this.tokenService.salvarToken(response.accessToken);
         }),
         catchError(this.handleError)
       );
   }
 
   logout(): void {
-    localStorage.removeItem(this.authTokenKey);
+    this.tokenService.excluirToken();
     this.router.navigate(['/login']);
   }
 
   isAuthenticated(): boolean {
-    return !!localStorage.getItem(this.authTokenKey);
-  }
-
-  getToken(): string | null {
-    return localStorage.getItem(this.authTokenKey);
+    return this.tokenService.possuiToken();
   }
 
   private handleError(error: HttpErrorResponse) {
-    let errorMessage = 'Ocorreu um erro desconhecido.';
-    if (error.error instanceof ErrorEvent) {
-      errorMessage = `Erro: ${error.error.message}`;
-    } else {
-      errorMessage = error.error.message || 'Credenciais inválidas.';
-    }
-    console.error(errorMessage);
+    const errorMessage =
+      error.error?.message || 'Credenciais inválidas ou erro de rede.';
     return throwError(() => new Error(errorMessage));
   }
 }

@@ -1,10 +1,11 @@
 export interface AuthResponse {
-  id: number;
-  username: string;
+  accessToken: string;
   email: string;
   firstName: string;
-  lastName: string;
   gender: string;
+  id: number;
   image: string;
-  token: string;
+  lastName: string;
+  refreshToken: string;
+  username: string;
 }
