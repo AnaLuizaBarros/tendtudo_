@@ -1,0 +1,8 @@
+<div *ngIf="shouldShowError" class="validation-error">
+  <div *ngIf="control?.errors?.['required']">{{ fieldName }} é obrigatório.</div>
+  <div *ngIf="control?.errors?.['email']">Por favor, insira um email válido.</div>
+  <div *ngIf="control?.errors?.['minlength']">
+    Deve ter no mínimo {{ control?.errors?.['minlength'].requiredLength }} caracteres.
+  </div>
+  <div *ngIf="control?.errors?.['mismatch']">As senhas não coincidem.</div>
+</div>
