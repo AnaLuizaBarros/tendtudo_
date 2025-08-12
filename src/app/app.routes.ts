@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ResultadoPesquisaComponent } from './categoria/resultado-pesquisa/resultado-pesquisa.component';
+import { ResultadoPesquisaComponent } from './produto/resultado-pesquisa/resultado-pesquisa.component';
 
 export const routes: Routes = [
+  { path: '', redirectTo: '/categoria/beauty', pathMatch: 'full' },
   {
     path: 'auth',
     loadChildren: () =>
@@ -13,9 +14,10 @@ export const routes: Routes = [
   {
     path: 'categoria',
     loadChildren: () =>
-      import('./categoria/categoria.module').then((m) => m.CategoriaModule),
+      import('./produto/produto.module').then((m) => m.ProdutoModule),
   },
   { path: 'search', component: ResultadoPesquisaComponent },
+  { path: '**', redirectTo: '/categoria/beauty' },
 ];
 @NgModule({
   imports: [RouterModule.forChild(routes)],
