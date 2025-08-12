@@ -10,6 +10,7 @@ import {
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { authInterceptor } from './autenticacao/auth.interceptor';
 import { routes } from './app.routes';
+import { provideNgxMask } from 'ngx-mask';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,5 +20,6 @@ export const appConfig: ApplicationConfig = {
     provideHttpClient(),
     provideAnimations(),
     provideHttpClient(withInterceptors([authInterceptor]), withFetch()),
+    provideNgxMask(),
   ],
 };

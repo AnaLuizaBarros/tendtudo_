@@ -15,19 +15,19 @@ export class TokenService {
 
   salvarToken(token: string) {
     if (this.isBrowser) {
-      localStorage.setItem(KEY, token);
+      sessionStorage.setItem(KEY, token);
     }
   }
 
   excluirToken() {
     if (this.isBrowser) {
-      localStorage.removeItem(KEY);
+      sessionStorage.removeItem(KEY);
     }
   }
 
   retornarToken(): string {
     if (this.isBrowser) {
-      return localStorage.getItem(KEY) ?? '';
+      return sessionStorage.getItem(KEY) ?? '';
     }
     return '';
   }
