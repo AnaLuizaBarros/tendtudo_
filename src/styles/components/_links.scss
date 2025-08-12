@@ -19,6 +19,8 @@
   display: inline-flex;
   align-items: center;
   transition: color 0.2s ease;
+  background-color: transparent;
+  border: none;
 
   &:hover {
     color: #212529;
