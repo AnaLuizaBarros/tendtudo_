@@ -1,8 +1,10 @@
 import { Component, inject, OnInit, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Product } from '../../models/product.model';
 import { ProductService } from '../services/product.service';
-import { finalize, pipe } from 'rxjs';
+import { finalize } from 'rxjs';
+import { Location } from '@angular/common';
+import { ToastService } from '../../shared/services/toast.service';
 
 @Component({
   selector: 'tt-produto-detalhe',
@@ -12,7 +14,8 @@ import { finalize, pipe } from 'rxjs';
 export class ProdutoDetalheComponent implements OnInit {
   private route = inject(ActivatedRoute);
   private productService = inject(ProductService);
-  private router = inject(Router);
+  private location = inject(Location);
+  private toastService = inject(ToastService);
   isLoading = signal(true);
 
   product = signal<Product | undefined>(undefined);
@@ -22,22 +25,30 @@ export class ProdutoDetalheComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('id');
 
     if (id) {
-      this.isLoading = signal(true);
-
-      this.productService
-        .getProductById(id)
-        .pipe(finalize(() => (this.isLoading = signal(false))))
-        .subscribe((productData) => {
-          this.product.set(productData);
-        });
+      this.getProduct(id);
     }
   }
 
   goBack(): void {
-    this.router.navigate(['/categoria/beauty']);
+    this.location.back();
   }
 
   toggleFavorite(): void {
     this.isFavorite.update((value) => !value);
+  }
+
+  private getProduct(id: string): void {
+    this.isLoading = signal(true);
+
+    this.productService
+      .getProductById(id)
+      .pipe(finalize(() => (this.isLoading = signal(false))))
+      .subscribe((productData) => {
+        this.product.set(productData);
+      });
+  }
+  public addCart(): void {
+    this.toastService.show('Produto adicionado ao carrinho!', 'success');
+    console.log('add');
   }
 }

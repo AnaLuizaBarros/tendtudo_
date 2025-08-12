@@ -24,32 +24,7 @@
 .product-category {
   font-weight: 500;
   font-size: 12px;
-  text-transform: uppercase;
   color: #737380;
-}
-
-.rating-stars {
-  color: $star-rating-color;
-}
-
-.price-section .discount-text {
-  color: $primary-color;
-  font-weight: bold;
-}
-
-.favorite-icon {
-  font-size: 1.75rem;
-  cursor: pointer;
-  color: $border-color;
-  transition: color 0.2s ease-in-out, transform 0.2s ease;
-
-  &:hover {
-    transform: scale(1.1);
-  }
-
-  &.active {
-    color: $primary-color;
-  }
 }
 
 .description-title {
@@ -68,4 +43,30 @@
 
 .button-section {
   margin-top: 54px;
+}
+.product-title {
+  margin-bottom: 0;
+}
+
+.favorite-icon {
+  background-color: transparent;
+  border: none;
+  margin-top: 18px;
+  margin-left: 1rem;
+  font-size: 1rem;
+
+  color: $primary-color;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+
+  .bi-heart-fill.active {
+    color: $primary-color;
+  }
+}
+.box-description {
+  max-width: 450px;
 }
